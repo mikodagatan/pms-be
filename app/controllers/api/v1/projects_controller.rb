@@ -6,7 +6,6 @@ module Api
 
         render json: ProjectSerializer.render(project)
       end
-
     end
   end
 end
