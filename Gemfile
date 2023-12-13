@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 ruby '3.2.1'
 
 gem 'acts_as_list'
+gem 'aws-sdk-s3'
 gem 'blueprinter'
 gem 'bootsnap', require: false
 gem 'pg', '~> 1.1'

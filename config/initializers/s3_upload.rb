@@ -1,0 +1,9 @@
+require 'aws-sdk-s3'
+require 'dotenv/load' # Load environment variables from .env file
+
+Aws.config.update(
+  region: ENV['AWS_REGION'],
+  credentials: Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'])
+)
+
+S3_BUCKET = Aws::S3::Resource.new.bucket(ENV['AWS_S3_BUCKET'])
