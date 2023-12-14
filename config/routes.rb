@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post '/image_upload', to: 'image_uploads#create'
+      post '/image_delete', to: 'image_uploads#destroy'
       resources :projects, only: [:index]
       resources :cards, only: %i[create destroy] do
         collection do
