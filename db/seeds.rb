@@ -8,12 +8,14 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-project = Project.create(name: 'Sample Project', code: 'SMPL')
+2.times do |j|
+  project = Project.create(name: 'Sample Project', code: "SMPL#{j + 1}")
 
-3.times do |i|
-  column = Column.create(project:, name: "Column #{i}", position: i)
+  3.times do |i|
+    column = Column.create(project:, name: "Column #{i}", position: i + 1)
 
-  2.times do |k|
-    Card.create(column:, name: "Card #{i} - #{k}", description: 'Sample Description', position: k + 1)
+    2.times do |k|
+      Card.create(column:, name: "Card #{i} - #{k}", description: 'Sample Description', position: k + 1)
+    end
   end
 end

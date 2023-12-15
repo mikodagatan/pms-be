@@ -9,6 +9,16 @@ module Api
         end
       end
 
+      def move_column
+        service = Columns::MoveColumnService.new(params)
+
+        if service.call
+          render json: { success: true }
+        else
+          render json: { success: false }, status: :unprocessable_entity
+        end
+      end
+
       private
 
       def column
@@ -17,6 +27,10 @@ module Api
 
       def update_params
         params.permit(:name)
+      end
+
+      def move_column_params
+        params.permit(:column_id, :destination_index)
       end
     end
   end

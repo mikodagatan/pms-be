@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/image_upload', to: 'image_uploads#create'
       post '/image_delete', to: 'image_uploads#destroy'
-      resources :projects, only: [:index]
+      resources :projects, only: %i[index show], param: :code
       resources :cards, only: %i[create destroy] do
         collection do
           put 'update'
@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       resources :columns do
         collection do
           put 'update'
+          post 'move_column'
         end
       end
     end
