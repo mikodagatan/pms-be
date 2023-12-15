@@ -1,6 +1,12 @@
 module Api
   module V1
     class ColumnsController < ApplicationController
+      def create
+        column = Column.create(project_id: params[:project_id], name: 'New Column')
+
+        render json: { success: true, column: }
+      end
+
       def update
         if column.update(update_params)
           render json: { success: true }
