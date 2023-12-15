@@ -3,7 +3,10 @@ class ColumnSerializer < Blueprinter::Base
 
   fields :name, :position
 
-  association :cards, blueprint: CardSerializer do |column|
+  association :cards,
+              blueprint: CardSerializer,
+              default_if: Blueprinter::EMPTY_COLLECTION,
+              default: [] do |column|
     column.cards.order(position: :asc)
   end
 end

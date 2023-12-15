@@ -4,7 +4,7 @@ module Api
       def create
         column = Column.create(project_id: params[:project_id], name: 'New Column')
 
-        render json: { success: true, column: }
+        render json: { success: true, column: ColumnSerializer.render_as_hash(column) }
       end
 
       def update
@@ -22,6 +22,14 @@ module Api
           render json: { success: true }
         else
           render json: { success: false }, status: :unprocessable_entity
+        end
+      end
+
+      def destroy
+        if column&.destroy
+          render json: { success: true }
+        else
+          render json: { success: false }
         end
       end
 

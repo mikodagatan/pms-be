@@ -19,7 +19,7 @@ Rails.application.routes.draw do
           post 'move_card'
         end
       end
-      resources :columns do
+      resources :columns, only: %i[create destroy] do
         collection do
           put 'update'
           post 'move_column'
