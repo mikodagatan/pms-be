@@ -8,10 +8,18 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
+  get '/auth/login', to: 'sessions#login'
+  get '/auth/callback', to: 'sessions#callback'
+
   namespace :api do
     namespace :v1 do
       post '/image_upload', to: 'image_uploads#create'
       post '/image_delete', to: 'image_uploads#destroy'
+      resources :users do
+        collection do
+          get 'me'
+        end
+      end
       resources :projects, only: %i[index show], param: :code
       resources :cards, only: %i[create destroy] do
         collection do
