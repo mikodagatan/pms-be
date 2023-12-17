@@ -2,9 +2,9 @@ module Api
   module V1
     class ProjectsController < ApplicationController
       def index
-        project = Project.last
+        projects = Project.all
 
-        render json: ProjectSerializer.render(project)
+        render json: { success: true, projects: ProjectSerializer.render_as_hash(projects) }
       end
 
       def show

@@ -13,4 +13,10 @@ class ApplicationController < ActionController::API
 
     render json: { error: 'User not found' }, status: :unauthorized unless @current_user
   end
+
+  private
+
+  def render_unauthorized
+    render json: { error: 'Unauthorized' }, status: :unauthorized
+  end
 end
