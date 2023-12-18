@@ -6,5 +6,7 @@ class CreateCompanyUsers < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+
+    add_index :company_users, %i[company_id user_id], unique: true
   end
 end

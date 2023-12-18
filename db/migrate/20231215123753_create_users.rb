@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration[7.1]
       t.string :last_name
       t.string :email
       t.string :google_photo_url
+      t.string :username
 
       t.timestamps
     end
