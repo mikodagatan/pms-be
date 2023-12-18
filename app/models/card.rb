@@ -1,8 +1,12 @@
 class Card < ApplicationRecord
   belongs_to :column
   acts_as_list scope: :column
-
   has_one :project, through: :column
+
+  belongs_to :requester, class_name: 'User', foreign_key: :requester_id, required: false
+
+  has_many :card_assignees
+  has_many :assignees, through: :card_assignees, source: :assignee
 
   before_create :assign_code
 

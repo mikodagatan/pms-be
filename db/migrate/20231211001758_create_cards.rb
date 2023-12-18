@@ -7,6 +7,7 @@ class CreateCards < ActiveRecord::Migration[7.1]
       t.text :description
       t.integer :priority
       t.integer :position
+      t.references :requester, foreign_key: { to_table: :users }, index: true
 
       t.timestamps
     end
