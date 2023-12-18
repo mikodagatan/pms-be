@@ -20,7 +20,7 @@ Rails.application.routes.draw do
           get 'me'
         end
       end
-      resources :projects, only: %i[index show], param: :code
+      resources :projects, only: %i[index show create]
       resources :cards, only: %i[create destroy] do
         collection do
           put 'update'
