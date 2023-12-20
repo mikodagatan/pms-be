@@ -13,7 +13,9 @@ module Api
       end
 
       def update
-        if card.update(card_params)
+        service = Cards::UpdateService.new(card_params)
+
+        if service.call
           render json: { success: true }
         else
           render json: { errors: card.errors }, status: :unprocessable_entity
@@ -44,8 +46,11 @@ module Api
 
       def card_params
         params.permit(
+          :id,
           :name,
-          :description
+          :description,
+          :requester_id,
+          assignee_ids: []
         )
       end
 

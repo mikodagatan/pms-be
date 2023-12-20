@@ -7,7 +7,7 @@ class ProjectSerializer < Blueprinter::Base
     project.columns.order(position: :asc)
   end
 
-  association :user_mentions, blueprint: UserMentionSerializer do |project|
+  association :users, blueprint: UserSerializer do |project|
     project.users
   end
 end
