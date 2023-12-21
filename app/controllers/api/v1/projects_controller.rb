@@ -1,7 +1,7 @@
 module Api
   module V1
     class ProjectsController < ApplicationController
-      before_action :authorize_user, only: [:show]
+      before_action :authorize_user, only: %i[show update]
 
       def index
         projects = @current_user.projects
@@ -27,10 +27,23 @@ module Api
         end
       end
 
+      def update
+        service = Projects::UpdateService.new(project, update_params)
+        if service.call
+          render json: { success: true }
+        else
+          render json: { success: false, errors: service.errors }, status: :unprocessable_entity
+        end
+      end
+
       private
 
       def create_params
         params.permit(:name, :code)
+      end
+
+      def update_params
+        params.permit(:name, :code, user_ids: [])
       end
 
       def project

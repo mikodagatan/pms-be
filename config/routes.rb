@@ -15,12 +15,16 @@ Rails.application.routes.draw do
     namespace :v1 do
       post '/image_upload', to: 'image_uploads#create'
       post '/image_delete', to: 'image_uploads#destroy'
-      resources :users do
+      resources :users, only: %i[index] do
         collection do
           get 'me'
         end
       end
-      resources :projects, only: %i[index show create]
+      resources :projects, only: %i[index show create] do
+        collection do
+          put 'update'
+        end
+      end
       resources :cards, only: %i[create destroy] do
         collection do
           put 'update'
