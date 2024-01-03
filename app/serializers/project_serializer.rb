@@ -1,7 +1,7 @@
 class ProjectSerializer < Blueprinter::Base
   identifier :id
 
-  fields :name, :code
+  fields :name, :code, :scope
 
   association :columns, blueprint: ColumnSerializer do |project|
     project.columns.order(position: :asc)

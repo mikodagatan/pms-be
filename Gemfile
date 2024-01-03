@@ -12,6 +12,7 @@ gem 'puma', '>= 5.0'
 gem 'rack-cors'
 gem 'rails', '~> 7.1.2'
 gem 'redis', '>= 4.0.1'
+gem 'ruby-openai'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
 group :development, :test do

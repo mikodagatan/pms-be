@@ -37,6 +37,12 @@ Rails.application.routes.draw do
           post 'move_column'
         end
       end
+      resources :scopes, only: %i[index] do
+        collection do
+          put 'update'
+          post 'generate_cards'
+        end
+      end
     end
   end
 end
