@@ -1,6 +1,14 @@
 module Api
   module V1
     class CardsController < ApplicationController
+      def show
+        if card
+          render json: { success: true, card: CardSerializer.render_as_hash(card) }
+        else
+          render json: { success: false }, status: :unprocessable_entity
+        end
+      end
+
       def create
         column = Column.find_by(id: params[:column_id])
         card = column.cards.build(card_params)

@@ -1,0 +1,2 @@
+class DeveloperTask < Task
+end

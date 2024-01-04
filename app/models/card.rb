@@ -5,8 +5,11 @@ class Card < ApplicationRecord
 
   belongs_to :requester, class_name: 'User', foreign_key: :requester_id, required: false
 
-  has_many :card_assignees
+  has_many :card_assignees, dependent: :destroy
   has_many :assignees, through: :card_assignees, source: :assignee
+
+  has_many :developer_tasks, -> { order(position: :asc) }, class_name: 'DeveloperTask', dependent: :destroy
+  has_many :user_testing_tasks, -> { order(position: :asc) }, class_name: 'UserTestingTask', dependent: :destroy
 
   before_create :assign_code
 

@@ -25,7 +25,7 @@ Rails.application.routes.draw do
           put 'update'
         end
       end
-      resources :cards, only: %i[create destroy] do
+      resources :cards, only: %i[show create destroy] do
         collection do
           put 'update'
           post 'move_card'
@@ -37,10 +37,9 @@ Rails.application.routes.draw do
           post 'move_column'
         end
       end
-      resources :scopes, only: %i[index] do
+      resources :tasks, only: %i[create destroy] do
         collection do
           put 'update'
-          post 'generate_cards'
         end
       end
     end

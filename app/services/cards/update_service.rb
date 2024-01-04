@@ -20,9 +20,9 @@ module Cards
     private
 
     def card_assignees
-      params[:assignee_ids].map do |id|
+      params[:assignee_ids]&.map do |id|
         User.find(id)
-      end
+      end || []
     end
 
     def update_params
