@@ -31,6 +31,22 @@ module Api
         end
       end
 
+      def generate_tasks
+        project = Project.find(params[:project_id])
+        Cards::UpdateService.new({
+                                   id: params[:card_id],
+                                   description: params[:description]
+                                 }).call
+        card.reload
+        service = Openai::TaskService.new(project, card)
+
+        if service.call
+          render json: { success: true, card: CardSerializer.render_as_hash(card) }
+        else
+          render json: { success: false }, status: :unprocessable_entity
+        end
+      end
+
       def destroy
         task.destroy
 

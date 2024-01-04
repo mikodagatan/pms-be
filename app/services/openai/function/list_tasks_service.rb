@@ -2,11 +2,15 @@ module Openai
   module Function
     class ListTasksService
       class << self
-        def call(project:, tasks:)
-          tasks.map do |task|
-            id = Openai::CreateProjectCardService.new(project, task).call
-            "Card Created: #{id}"
-          end.join(', ')
+        def call(card:, developer_tasks:, user_testing_tasks:)
+          (developer_tasks.map do |task|
+            id = Openai::CreateCardTaskService.new(card, 'DeveloperTask', task).call
+            "Developer Task Created: #{id}"
+          end +
+          user_testing_tasks.map do |task|
+            id = Openai::CreateCardTaskService.new(card, 'UserTestingTask', task).call
+            "User Testing Task Created: #{id}"
+          end).join(', ')
         end
 
         def params
@@ -14,29 +18,38 @@ module Openai
           # to update the Assistant
           {
             name: 'list_tasks',
-            description: 'List tasks coming from scope',
+            description: 'List tasks coming from scope. Lists down developer tasks and user testing tasks.',
             parameters: {
               type: :object,
               properties: {
-                tasks: {
+                developer_tasks: {
                   type: :array,
                   items: {
                     type: :object,
                     properties: {
                       name: {
                         type: :string,
-                        description: 'Name of the task, describes task briefly'
-                      },
-                      description: {
-                        type: 'string',
-                        description: 'Describes what needs to be done for the tasks. List down all the details as much as possible. If need to be step-by-step, list them down. Make sure to list them down in html format. E.g. <h1>Steps</h1><ol><li>Step 1</li><li>Step 2</li></ol>'
+                        description: 'Describes what needs to be done for by the developer for the task. List down all the details as much as possible.'
                       }
                     },
-                    required: %w[name description]
+                    required: %w[name]
+                  }
+                },
+                user_testing_tasks: {
+                  type: :array,
+                  items: {
+                    type: :object,
+                    properties: {
+                      name: {
+                        type: :string,
+                        description: 'Describes what needs to be done by the user/client to check what the developer has done in the developer_tasks. List down all the details as much as possible.'
+                      }
+                    },
+                    required: [:name]
                   }
                 }
               },
-              required: ['tasks']
+              required: %w[developer_tasks user_testing_tasks]
             }
           }
         end

@@ -41,6 +41,7 @@ Rails.application.routes.draw do
         collection do
           put 'update'
           post 'move_task'
+          post 'generate_tasks'
         end
       end
     end

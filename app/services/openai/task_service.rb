@@ -1,11 +1,12 @@
 module Openai
   class TaskService
-    attr_reader :project, :message, :client
+    attr_reader :project, :card, :message, :client
 
-    def initialize(project, message)
+    def initialize(project, card)
       @client = OpenAI::Client.new
-      @message = message
       @project = project || Project.find_by(code: 'SMPL3')
+      @card = card
+      @message = card.description
     end
 
     def call
@@ -48,6 +49,7 @@ module Openai
       end
     rescue StandardError => e
       puts e
+      puts client.runs.cancel(id: run_id, thread_id:)
       false
     end
 
@@ -121,7 +123,7 @@ module Openai
     def call_tool_function(function_name, arguments)
       case function_name
       when 'list_tasks'
-        Openai::Function::ListTasksService.call(project:, **arguments)
+        Openai::Function::ListTasksService.call(card:, **arguments)
       end
     end
 

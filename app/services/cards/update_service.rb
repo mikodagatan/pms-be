@@ -10,7 +10,7 @@ module Cards
     def call
       ActiveRecord::Base.transaction do
         @card.update!(update_params)
-        @card.assignees = card_assignees
+        @card.assignees = card_assignees if params[:assignee_ids]
       end
       true
     rescue StandardError
