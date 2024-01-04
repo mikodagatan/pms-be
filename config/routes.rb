@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       resources :tasks, only: %i[create destroy] do
         collection do
           put 'update'
+          post 'move_task'
         end
       end
     end

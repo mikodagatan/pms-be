@@ -21,6 +21,16 @@ module Api
         end
       end
 
+      def move_task
+        service = Tasks::MoveTaskService.new(move_task_params)
+
+        if service.call
+          render json: { success: true }
+        else
+          render json: { success: false }, status: :unprocessable_entity
+        end
+      end
+
       def destroy
         task.destroy
 
@@ -43,6 +53,10 @@ module Api
 
       def update_params
         params.permit(:id, :name, :checked)
+      end
+
+      def move_task_params
+        params.permit(:task_id, :destination_index)
       end
     end
   end
