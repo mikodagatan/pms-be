@@ -11,6 +11,8 @@ class Card < ApplicationRecord
   has_many :developer_tasks, -> { order(position: :asc) }, class_name: 'DeveloperTask', dependent: :destroy
   has_many :user_testing_tasks, -> { order(position: :asc) }, class_name: 'UserTestingTask', dependent: :destroy
 
+  has_many :comments, -> { order(created_at: :desc) }, as: :resource, dependent: :destroy
+
   before_create :assign_code
 
   private

@@ -14,4 +14,8 @@ class CardSerializer < Blueprinter::Base
   association :user_testing_tasks, blueprint: TaskSerializer do |card|
     card.user_testing_tasks
   end
+
+  association :comments, blueprint: CommentSerializer do |card|
+    card.comments
+  end
 end

@@ -44,6 +44,11 @@ Rails.application.routes.draw do
           post 'generate_tasks'
         end
       end
+      resources :comments, only: %i[create destroy] do
+        collection do
+          put 'update'
+        end
+      end
     end
   end
 end

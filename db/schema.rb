@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_03_082915) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_05_030916) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,6 +45,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_082915) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_columns_on_project_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "content"
+    t.bigint "commenter_id", null: false
+    t.string "resource_type", null: false
+    t.bigint "resource_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commenter_id"], name: "index_comments_on_commenter_id"
+    t.index ["resource_type", "resource_id"], name: "index_comments_on_resource"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -116,6 +127,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_03_082915) do
   add_foreign_key "cards", "columns"
   add_foreign_key "cards", "users", column: "requester_id"
   add_foreign_key "columns", "projects"
+  add_foreign_key "comments", "users", column: "commenter_id"
   add_foreign_key "companies", "users", column: "owner_id"
   add_foreign_key "company_users", "companies"
   add_foreign_key "company_users", "users"

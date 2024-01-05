@@ -15,36 +15,6 @@ module Openai
 
         poll_run_result(run_id)
 
-        # # Alternatively retrieve the `run steps` for the run which link to the messages:
-        # run_steps = client.run_steps.list(thread_id:, run_id:)
-
-        # puts "RUN STEPS: #{run_steps}"
-
-        # new_message_ids = run_steps['data'].filter_map do |step|
-        #   if step['type'] == 'message_creation'
-        #     step.dig('step_details', 'message_creation', 'message_id')
-        #   end # Ignore tool calls, because they don't create new messages.
-        # end
-
-        # # Retrieve the individual messages
-        # new_messages = new_message_ids.map do |msg_id|
-        #   client.messages.retrieve(id: msg_id, thread_id:)
-        # end
-
-        # # Find the actual response text in the content array of the messages
-        # new_messages.each do |msg|
-        #   msg['content'].each do |content_item|
-        #     case content_item['type']
-        #     when 'text'
-        #       puts content_item.dig('text', 'value')
-        #     # Also handle annotations
-        #     when 'image_file'
-        #       # Use File endpoint to retrieve file contents via id
-        #       id = content_item.dig('image_file', 'file_id')
-        #     end
-        #   end
-        # end
-        # new_messages
         true
       end
     rescue StandardError => e
