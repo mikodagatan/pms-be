@@ -15,11 +15,17 @@ class Card < ApplicationRecord
 
   before_create :assign_code
 
+  before_destroy :delete_images
+
   private
 
   def assign_code
     previous_number = project.cards.order(code: :asc)&.last&.code&.split('-')&.last&.to_i
     new_number = previous_number ? previous_number + 1 : 1
     self.code = "#{project.code}-#{new_number.to_s.rjust(4, '0')}"
+  end
+
+  def delete_images
+    S3::DeleteImagesFromHtmlService.new(description).call
   end
 end
