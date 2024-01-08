@@ -10,11 +10,10 @@ module Api
       end
 
       def create
-        column = Column.find_by(id: params[:column_id])
-        card = column.cards.build(card_params)
+        service = Cards::CreateService.new(@current_user, create_card_params)
 
-        if card.save
-          render json: { success: true, card: }, status: :created
+        if service.call
+          render json: { success: true, card: service.card }, status: :created
         else
           render json: { errors: card.errors }, status: :unprocessable_entity
         end
@@ -50,6 +49,10 @@ module Api
 
       def card
         @card ||= Card.find_by(id: params[:id])
+      end
+
+      def create_card_params
+        params.permit(:column_id, :name)
       end
 
       def card_params

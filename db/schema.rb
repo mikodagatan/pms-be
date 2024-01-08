@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_05_030916) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_08_000602) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,6 +22,21 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_05_030916) do
     t.index ["assignee_id"], name: "index_card_assignees_on_assignee_id"
     t.index ["card_id", "assignee_id"], name: "index_card_assignees_on_card_id_and_assignee_id", unique: true
     t.index ["card_id"], name: "index_card_assignees_on_card_id"
+  end
+
+  create_table "card_histories", force: :cascade do |t|
+    t.bigint "card_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "action"
+    t.string "attr"
+    t.text "from"
+    t.text "to"
+    t.boolean "ai", default: false
+    t.text "output"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["card_id"], name: "index_card_histories_on_card_id"
+    t.index ["user_id"], name: "index_card_histories_on_user_id"
   end
 
   create_table "cards", force: :cascade do |t|
@@ -124,6 +139,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_05_030916) do
   end
 
   add_foreign_key "card_assignees", "users", column: "assignee_id"
+  add_foreign_key "card_histories", "cards"
+  add_foreign_key "card_histories", "users"
   add_foreign_key "cards", "columns"
   add_foreign_key "cards", "users", column: "requester_id"
   add_foreign_key "columns", "projects"

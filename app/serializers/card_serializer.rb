@@ -18,4 +18,8 @@ class CardSerializer < Blueprinter::Base
   association :comments, blueprint: CommentSerializer do |card|
     card.comments
   end
+
+  association :histories, blueprint: CardHistorySerializer do |card|
+    card.histories
+  end
 end

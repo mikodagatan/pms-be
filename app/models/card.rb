@@ -13,6 +13,8 @@ class Card < ApplicationRecord
 
   has_many :comments, -> { order(created_at: :desc) }, as: :resource, dependent: :destroy
 
+  has_many :histories, -> { order(created_at: :desc) }, class_name: 'CardHistory', dependent: :destroy
+
   before_create :assign_code
 
   before_destroy :delete_images

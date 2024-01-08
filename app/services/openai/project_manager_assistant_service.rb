@@ -15,6 +15,7 @@ module Openai
       end
 
       def assistant_params
+        # To update the Assistant in openai, call this command: Openai::ProjectManagerAssistantService.call(modify: true)
         {
           model: 'gpt-4',
           name: 'Project Manager Assistant',
