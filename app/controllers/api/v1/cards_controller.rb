@@ -60,6 +60,7 @@ module Api
           :id,
           :name,
           :description,
+          :estimate,
           :requester_id,
           assignee_ids: []
         )

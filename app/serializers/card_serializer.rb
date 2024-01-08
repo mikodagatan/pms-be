@@ -1,7 +1,7 @@
 class CardSerializer < Blueprinter::Base
   identifier :id
 
-  fields :name, :code, :description, :position, :column_id, :requester_id
+  fields :name, :code, :description, :estimate, :position, :column_id, :requester_id
 
   field :assignee_ids do |card|
     card.assignees.pluck(:id)
