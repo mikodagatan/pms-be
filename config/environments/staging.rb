@@ -12,6 +12,8 @@ Rails.application.configure do
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
 
+  Rails.application.routes.default_url_options[:host] = 'https://pms-backend-staging-b7a9e7989beb.herokuapp.com'
+
   config.before_eager_load do
     Rails.application.reload_routes!
   end
