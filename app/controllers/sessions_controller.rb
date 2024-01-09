@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     user = Users::CreateFromGoogleAuthService.new(user_info).call
     token = Jwt.encode({ email: user.email, exp: 16.hours.from_now.to_i })
 
-    redirect_to "#{ENV['FRONT_END_URL']}/auth/callback?token=#{token}"
+    redirect_to "#{ENV['FRONT_END_URL']}/auth/callback?token=#{token}", allow_other_host: true
   rescue StandardError => e
     render json: { error: e.message }, status: :unprocessable_entity
   end
