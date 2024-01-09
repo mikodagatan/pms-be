@@ -4,6 +4,9 @@ class CardHistorySerializer < Blueprinter::Base
   field :google_photo_url do |history|
     history.user.google_photo_url
   end
+  field :full_name do |history|
+    history.user.full_name
+  end
 
-  field :output
+  fields :output, :created_at
 end
