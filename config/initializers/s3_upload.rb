@@ -1,5 +1,4 @@
 require 'aws-sdk-s3'
-require 'dotenv/load' # Load environment variables from .env file
 
 Aws.config.update(
   region: ENV['AWS_REGION'],
