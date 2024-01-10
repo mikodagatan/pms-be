@@ -2,20 +2,28 @@ module Api
   module V1
     class TasksController < ApplicationController
       def create
-        service = Tasks::CreateService.new(card, create_params)
+        service = Tasks::CreateService.new(@current_user, create_params)
 
         if service.call
-          render json: { success: true, task: TaskSerializer.render_as_hash(service.task) }
+          render json: {
+            success: true,
+            task: TaskSerializer.render_as_hash(service.task),
+            card: CardSerializer.render_as_hash(service.task.card)
+          }
         else
           render json: { success: false, errors: service.errors }, status: :unprocessable_entity
         end
       end
 
       def update
-        service = Tasks::UpdateService.new(task, update_params)
+        service = Tasks::UpdateService.new(@current_user, task, update_params)
 
         if service.call
-          render json: { success: true, task: TaskSerializer.render_as_hash(service.task) }
+          render json: {
+            success: true,
+            task: TaskSerializer.render_as_hash(service.task),
+            card: CardSerializer.render_as_hash(service.task.card)
+          }
         else
           render json: { success: false, errors: service.errors }, status: :unprocessable_entity
         end
@@ -48,9 +56,13 @@ module Api
       end
 
       def destroy
-        task.destroy
+        service = Tasks::DestroyService.new(@current_user, task)
 
-        render json: { success: true }
+        if service.call
+          render json: { success: true, card: CardSerializer.render_as_hash(service.task.card) }
+        else
+          render json: { success: false, errors: service.errors }, status: :unprocessable_entity
+        end
       end
 
       private

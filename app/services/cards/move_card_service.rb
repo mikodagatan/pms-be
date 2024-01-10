@@ -39,7 +39,7 @@ module Cards
     end
 
     def create_history
-      CardHistories::MoveCardService.new(current_user, source_column, destination_column).call unless same_column?
+      CardHistories::MoveCardService.new(current_user, card, source_column, destination_column).call unless same_column?
     end
   end
 end

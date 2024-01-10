@@ -30,9 +30,10 @@ module Api
       end
 
       def move_card
-        Cards::MoveCardService.new(@current_user, move_card_params).call
+        service = Cards::MoveCardService.new(@current_user, move_card_params)
+        service.call
 
-        render json: { success: true }
+        render json: { success: true, card: CardSerializer.render_as_hash(service.card) }
       rescue StandardError
         render json: { success: false }
       end
