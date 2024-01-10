@@ -30,7 +30,7 @@ module Api
       end
 
       def move_card
-        Cards::MoveCardService.new(move_card_params).call
+        Cards::MoveCardService.new(@current_user, move_card_params).call
 
         render json: { success: true }
       rescue StandardError
