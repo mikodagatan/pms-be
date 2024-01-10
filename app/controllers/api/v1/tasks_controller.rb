@@ -33,7 +33,7 @@ module Api
 
       def generate_tasks
         project = Project.find(params[:project_id])
-        Cards::UpdateService.new({
+        Cards::UpdateService.new(@current_user, {
                                    id: params[:card_id],
                                    description: params[:description]
                                  }).call
