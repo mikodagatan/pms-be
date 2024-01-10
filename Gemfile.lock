@@ -114,6 +114,7 @@ GEM
       irb (>= 1.5.0)
       reline (>= 0.3.1)
     diff-lcs (1.5.0)
+    diffy (3.4.2)
     docile (1.4.0)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
@@ -137,6 +138,7 @@ GEM
     faraday-net_http (3.0.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    htmlbeautifier (1.4.2)
     httparty (0.21.0)
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
@@ -289,8 +291,10 @@ DEPENDENCIES
   bootsnap
   database_cleaner
   debug
+  diffy
   dotenv-rails
   factory_bot_rails
+  htmlbeautifier
   httparty
   pg (~> 1.1)
   pry-rails

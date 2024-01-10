@@ -8,5 +8,5 @@ class CardHistorySerializer < Blueprinter::Base
     history.user.full_name
   end
 
-  fields :output, :created_at
+  fields :attr, :output, :from, :to, :created_at
 end

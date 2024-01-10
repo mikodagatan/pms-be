@@ -13,17 +13,17 @@ module Api
         service = Cards::CreateService.new(@current_user, create_card_params)
 
         if service.call
-          render json: { success: true, card: service.card }, status: :created
+          render json: { success: true, card: CardSerializer.render_as_hash(service.card) }, status: :created
         else
           render json: { errors: card.errors }, status: :unprocessable_entity
         end
       end
 
       def update
-        service = Cards::UpdateService.new(card_params)
+        service = Cards::UpdateService.new(@current_user, card_params)
 
         if service.call
-          render json: { success: true }
+          render json: { success: true, card: CardSerializer.render_as_hash(service.card) }
         else
           render json: { errors: card.errors }, status: :unprocessable_entity
         end

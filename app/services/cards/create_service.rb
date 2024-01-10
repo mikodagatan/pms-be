@@ -25,13 +25,8 @@ module Cards
     end
 
     def create_history
-      history = card.histories.build(
-        attr: :card,
-        action: :create_action,
-        user: current_user,
-        output: "<strong>#{current_user.full_name}</strong> has created the card."
-      )
-      history.save!
+      service = CardHistories::CreateCardService.new(current_user, card)
+      service.call
     end
   end
 end

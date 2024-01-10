@@ -6,6 +6,8 @@ gem 'acts_as_list'
 gem 'aws-sdk-s3'
 gem 'blueprinter'
 gem 'bootsnap', require: false
+gem 'diffy'
+gem 'htmlbeautifier'
 gem 'httparty'
 gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'

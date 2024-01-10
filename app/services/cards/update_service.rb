@@ -1,16 +1,19 @@
 module Cards
   class UpdateService
-    attr_reader :card, :params
+    attr_reader :current_user, :card, :params
 
-    def initialize(params)
+    def initialize(current_user, params)
+      @current_user = current_user
       @card = Card.find(params[:id])
       @params = params.except(:id)
     end
 
     def call
       ActiveRecord::Base.transaction do
-        @card.update!(update_params)
-        @card.assignees = card_assignees if params[:assignee_ids]
+        card.assign_attributes(update_params)
+        create_history
+        card.save
+        card.assignees = card_assignees if params[:assignee_ids]
       end
       true
     rescue StandardError
@@ -27,6 +30,10 @@ module Cards
 
     def update_params
       params.except(:assignee_ids)
+    end
+
+    def create_history
+      CardHistories::UpdateDescriptionService.new(current_user, card).call if card.description_changed?
     end
   end
 end
