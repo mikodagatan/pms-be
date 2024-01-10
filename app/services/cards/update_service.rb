@@ -34,6 +34,7 @@ module Cards
 
     def create_history
       CardHistories::UpdateDescriptionService.new(current_user, card).call if card.description_changed?
+      CardHistories::UpdateNameService.new(current_user, card).call if card.name_changed?
     end
   end
 end
