@@ -30,8 +30,19 @@ module Users
         first_name: names&.dig('givenName'),
         last_name: names&.dig('familyName'),
         email:,
-        google_photo_url:
+        google_photo_url:,
+        username:
       }
+    end
+
+    def username
+      names = google_auth_data['names']&.first
+
+      string = ''
+      string += names&.dig('givenName') if names&.dig('givenName')
+      string += names&.dig('familyName') if names&.dig('familyName')
+      string += email
+      string
     end
   end
 end
