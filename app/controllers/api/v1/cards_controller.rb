@@ -15,7 +15,7 @@ module Api
         if service.call
           render json: { success: true, card: CardSerializer.render_as_hash(service.card) }, status: :created
         else
-          render json: { errors: card.errors }, status: :unprocessable_entity
+          render json: { errors: service.errors }, status: :unprocessable_entity
         end
       end
 
@@ -39,7 +39,9 @@ module Api
       end
 
       def destroy
-        if card&.destroy
+        service = Cards::DestroyService.new(@current_user, card)
+
+        if service.call
           render json: { success: true }
         else
           render json: { success: false }

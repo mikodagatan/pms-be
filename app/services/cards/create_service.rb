@@ -11,10 +11,13 @@ module Cards
       ActiveRecord::Base.transaction do
         @card = column.cards.build(params)
         @card.save!
+        card.insert_at(1)
         create_history
+        broadcast
       end
-    rescue StandardError
-      @errors = @card.errors
+    rescue StandardError => e
+      @errors = @card.errors.to_hash
+      @errors[:error] = e
       false
     end
 
@@ -27,6 +30,13 @@ module Cards
     def create_history
       service = CardHistories::CreateCardService.new(current_user, card)
       service.call
+    end
+
+    def broadcast
+      ActionCable.server.broadcast(
+        "project_channel_#{column.project.id}",
+        { project: ProjectSerializer.render_as_hash(column.project) }
+      )
     end
   end
 end

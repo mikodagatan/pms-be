@@ -18,6 +18,7 @@ module Cards
         card.update(column: destination_column) unless same_column?
         create_history
         card.insert_at(@destination_index + 1)
+        broadcast
       end
       true
     rescue StandardError
@@ -40,6 +41,13 @@ module Cards
 
     def create_history
       CardHistories::MoveCardService.new(current_user, card, source_column, destination_column).call unless same_column?
+    end
+
+    def broadcast
+      ActionCable.server.broadcast(
+        "project_channel_#{project.id}",
+        { project: ProjectSerializer.render_as_hash(project) }
+      )
     end
   end
 end
