@@ -8,7 +8,7 @@ module Users
 
     def call
       @user = User.where(email:).first_or_initialize(user_params)
-      user.save!
+      user.save(validate: false)
 
       user
     end

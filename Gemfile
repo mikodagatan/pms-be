@@ -4,11 +4,13 @@ ruby '3.2.1'
 
 gem 'acts_as_list'
 gem 'aws-sdk-s3'
+gem 'bcrypt', '~> 3.1.7'
 gem 'blueprinter'
 gem 'bootsnap', require: false
 gem 'diffy'
 gem 'htmlbeautifier'
 gem 'httparty'
+gem 'letter_opener'
 gem 'pg', '~> 1.1'
 gem 'puma', '>= 5.0'
 gem 'rack-cors'

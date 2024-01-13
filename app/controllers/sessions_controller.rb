@@ -2,6 +2,16 @@ class SessionsController < ApplicationController
   skip_before_action :authenticate_user
 
   def login
+    service = Sessions::LoginService.new(login_params)
+
+    if service.call
+      render json: { success: true, token: service.token }
+    else
+      render json: { success: false, errors: service.errors }, status: :unprocessable_entity
+    end
+  end
+
+  def google_login
     render json: { redirect_url: google_auth.initiate_oauth2 }
   end
 
@@ -19,5 +29,9 @@ class SessionsController < ApplicationController
 
   def google_auth
     @google_auth ||= GoogleAuth.new
+  end
+
+  def login_params
+    params.permit(:email, :password, :remember_me)
   end
 end

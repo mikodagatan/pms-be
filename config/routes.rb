@@ -8,8 +8,12 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-  get '/auth/login', to: 'sessions#login'
+  post '/auth/register', to: 'registrations#register'
+  post '/auth/login', to: 'sessions#login'
+  get '/auth/google_login', to: 'sessions#google_login'
   get '/auth/callback', to: 'sessions#callback'
+  post '/auth/forgot_password', to: 'reset_password#create'
+  post '/auth/reset_password', to: 'reset_password#reset_password'
 
   namespace :api do
     namespace :v1 do
