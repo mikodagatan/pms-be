@@ -12,6 +12,7 @@ module Tasks
       ActiveRecord::Base.transaction do
         create_history
         task.destroy
+        broadcast
       end
     rescue StandardError => e
       @errors << e
@@ -20,6 +21,13 @@ module Tasks
 
     def create_history
       CardHistories::DeleteTaskService.new(current_user, task).call
+    end
+
+    def broadcast
+      ActionCable.server.broadcast(
+        "card_channel_#{task.card.id}",
+        { card: CardSerializer.render_as_hash(task.card) }
+      )
     end
   end
 end

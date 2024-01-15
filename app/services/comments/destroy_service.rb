@@ -1,21 +1,18 @@
 module Comments
-  class UpdateService
-    attr_reader :comment, :params, :errors
+  class DestroyService
+    attr_reader :comment
 
-    def initialize(comment, params)
+    def initialize(comment)
       @comment = comment
-      @params = params
     end
 
     def call
       ActiveRecord::Base.transaction do
-        comment.update!(params)
+        comment.destroy
+        comment.resource.reload
         broadcast
       end
       true
-    rescue StandardError
-      @errors = comment.errors
-      false
     end
 
     private

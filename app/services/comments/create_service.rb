@@ -8,9 +8,13 @@ module Comments
     end
 
     def call
-      @comment = Comment.new(create_params)
+      ActiveRecord::Base.transaction do
+        @comment = Comment.new(create_params)
 
-      comment.save!
+        comment.save!
+        broadcast
+      end
+      true
     rescue StandardError
       @errors = comment.errors
       false
@@ -20,6 +24,13 @@ module Comments
 
     def create_params
       params.merge(commenter_id: current_user.id)
+    end
+
+    def broadcast
+      ActionCable.server.broadcast(
+        "card_channel_#{comment.resource.id}",
+        { card: CardSerializer.render_as_hash(comment.resource) }
+      )
     end
   end
 end

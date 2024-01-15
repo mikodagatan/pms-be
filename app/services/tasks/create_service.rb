@@ -12,6 +12,7 @@ module Tasks
         @task = Task.new(params)
         task.save!
         create_history
+        broadcast
       end
     rescue StandardError
       @errors = task.errors
@@ -22,6 +23,13 @@ module Tasks
 
     def create_history
       CardHistories::CreateTaskService.new(current_user, task).call
+    end
+
+    def broadcast
+      ActionCable.server.broadcast(
+        "card_channel_#{task.card.id}",
+        { card: CardSerializer.render_as_hash(task.card) }
+      )
     end
   end
 end
