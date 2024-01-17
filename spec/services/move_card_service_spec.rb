@@ -5,6 +5,8 @@ RSpec.describe Cards::MoveCardService do
   let(:source_column) { create(:column, project:) }
   let(:destination_column) { create(:column, project:) }
   let(:card) { create(:card, column: source_column) }
+  let(:user) { create(:user) }
+  let(:project_user) { create(:project_user, project: project, user: user) }
 
   let(:params) do
     {
@@ -17,7 +19,7 @@ RSpec.describe Cards::MoveCardService do
     }
   end
 
-  subject { described_class.new(params) }
+  subject { described_class.new(user, params) }
 
   describe '#call' do
     context 'when moving the card to a different column' do

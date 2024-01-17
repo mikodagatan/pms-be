@@ -2,6 +2,7 @@
 require 'simplecov'
 SimpleCov.start 'rails' do
   add_group 'Services', 'app/services'
+  add_group 'Serializers', 'app/serializers'
 end
 
 require 'spec_helper'
