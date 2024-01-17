@@ -23,9 +23,9 @@ module CardHistories
 
     def output
       if task.checked
-        "<strong>#{full_name}</strong> has marked the task as done: <strong>#{task.name}</strong>"
+        "<strong>#{full_name}</strong> has marked the #{task_type} as done: <strong>#{task.name}</strong>"
       else
-        "<strong>#{full_name}</strong> has marked the task as unfinished: <strong>#{task.name}</strong>"
+        "<strong>#{full_name}</strong> has marked the #{task_type} as unfinished: <strong>#{task.name}</strong>"
       end
     end
 
@@ -35,6 +35,10 @@ module CardHistories
 
     def full_name
       current_user.full_name
+    end
+
+    def task_type
+      task.type.underscore.humanize.downcase
     end
   end
 end

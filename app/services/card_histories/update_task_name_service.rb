@@ -23,9 +23,13 @@ module CardHistories
     private
 
     def output
-      "<strong>#{current_user.full_name}</strong> has updated the task" \
+      "<strong>#{current_user.full_name}</strong> has updated the #{task_type}" \
       " from <strong>#{task.name_was}</strong> " \
       " to <strong>#{task.name}</strong>"
+    end
+
+    def task_type
+      task.type.underscore.humanize.downcase
     end
   end
 end
