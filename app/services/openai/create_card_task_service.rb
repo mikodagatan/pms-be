@@ -14,12 +14,7 @@ module Openai
 
       return unless task.save
 
-      create_history(task)
       task.id
-    end
-
-    def create_history(task)
-      CardHistories::CreateTaskService.new(current_user, task, use_ai: true).call
     end
   end
 end
