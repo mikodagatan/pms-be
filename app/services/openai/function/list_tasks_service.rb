@@ -8,16 +8,16 @@ module Openai
           developer_tasks:,
           user_testing_tasks:
         )
-          developer_tasks_created = developer_tasks.map do |task|
-            id = Openai::CreateCardTaskService.new(current_user, card, 'DeveloperTask', task).call
-            "Developer Task Created: #{id}"
+          card.developer_tasks.delete_all
+          card.user_testing_tasks.delete_all
+          developer_tasks.each do |task|
+            Openai::CreateCardTaskService.new(current_user, card, 'DeveloperTask', task).call
           end
-          user_testing_tasks_created = user_testing_tasks.map do |task|
-            id = Openai::CreateCardTaskService.new(current_user, card, 'UserTestingTask', task).call
-            "User Testing Task Created: #{id}"
+          user_testing_tasks.map do |task|
+            Openai::CreateCardTaskService.new(current_user, card, 'UserTestingTask', task).call
           end
           CardHistories::GenerateAiService.new(current_user, card).call
-          (developer_tasks_created + user_testing_tasks_created).join(', ')
+          'Tasks Created'
         end
 
         def params
