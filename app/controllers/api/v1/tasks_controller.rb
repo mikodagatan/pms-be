@@ -46,7 +46,7 @@ module Api
                                    description: params[:description]
                                  }).call
         card.reload
-        service = Openai::TaskService.new(project, card)
+        service = Openai::TaskService.new(project, card, current_user: @current_user)
 
         if service.call
           render json: { success: true, card: CardSerializer.render_as_hash(card) }

@@ -1,11 +1,12 @@
 module Openai
   class CreateCardTaskService
-    attr_reader :params, :card, :column
+    attr_reader :current_user, :params, :card, :column
 
-    def initialize(card, type, params)
+    def initialize(current_user, card, type, params)
+      @current_user = current_user
       @card = card
       @params = params
-      @tasks_type = type == 'UserTestingTask' ? 'user_testing_tasks' : 'developer_tasks'
+      @tasks_type = type.underscore.pluralize
     end
 
     def call
@@ -13,7 +14,12 @@ module Openai
 
       return unless task.save
 
+      create_history(task)
       task.id
+    end
+
+    def create_history(task)
+      CardHistories::CreateTaskService.new(current_user, task, use_ai: true).call
     end
   end
 end

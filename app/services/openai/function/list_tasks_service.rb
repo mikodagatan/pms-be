@@ -2,13 +2,18 @@ module Openai
   module Function
     class ListTasksService
       class << self
-        def call(card:, developer_tasks:, user_testing_tasks:)
+        def call(
+          current_user:,
+          card:,
+          developer_tasks:,
+          user_testing_tasks:
+        )
           (developer_tasks.map do |task|
-            id = Openai::CreateCardTaskService.new(card, 'DeveloperTask', task).call
+            id = Openai::CreateCardTaskService.new(current_user, card, 'DeveloperTask', task).call
             "Developer Task Created: #{id}"
           end +
           user_testing_tasks.map do |task|
-            id = Openai::CreateCardTaskService.new(card, 'UserTestingTask', task).call
+            id = Openai::CreateCardTaskService.new(current_user, card, 'UserTestingTask', task).call
             "User Testing Task Created: #{id}"
           end).join(', ')
         end

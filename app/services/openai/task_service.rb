@@ -1,12 +1,13 @@
 module Openai
   class TaskService
-    attr_reader :project, :card, :message, :client
+    attr_reader :project, :card, :message, :client, :current_user
 
-    def initialize(project, card)
+    def initialize(project, card, current_user:)
       @client = OpenAI::Client.new
       @project = project || Project.find_by(code: 'SMPL3')
       @card = card
       @message = card.description
+      @current_user = current_user
     end
 
     def call
@@ -93,7 +94,7 @@ module Openai
     def call_tool_function(function_name, arguments)
       case function_name
       when 'list_tasks'
-        Openai::Function::ListTasksService.call(card:, **arguments)
+        Openai::Function::ListTasksService.call(current_user:, card:, **arguments)
       end
     end
 
