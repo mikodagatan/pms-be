@@ -24,6 +24,6 @@ project = Project.find_or_create_by(code: 'SMPL3')
 
 20.times do |i|
   user = User.create(first_name: 'User', last_name: "#{i + 1}", email: "user#{i + 1}@email.com",
-                     username: "username #{i + 1}")
+                     username: "username #{i + 1}", password: 'password', password_confirmation: 'password')
   project.users << user
 end
