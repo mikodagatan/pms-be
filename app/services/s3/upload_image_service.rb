@@ -7,8 +7,8 @@ module S3
     end
 
     def call
-      s3_object = S3_BUCKET.object("#{Time.now.to_i}_#{image.original_filename}")
-      s3_object.upload_file(image.tempfile, acl: 'public-read')
+      s3_object = S3_BUCKET.object("editor/#{Time.now.to_i}_#{image.original_filename}")
+      s3_object.upload_file(image.tempfile)
 
       s3_object.public_url
     end
