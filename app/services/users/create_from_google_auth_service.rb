@@ -31,7 +31,8 @@ module Users
         last_name: names&.dig('familyName'),
         email:,
         google_photo_url:,
-        username:
+        username:,
+        confirmed_at: user&.confirmed_at || DateTime.current
       }
     end
 

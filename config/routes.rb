@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get '/auth/callback', to: 'sessions#callback'
   post '/auth/forgot_password', to: 'reset_password#create'
   post '/auth/reset_password', to: 'reset_password#reset_password'
+  get '/auth/confirm_email', to: 'confirmations#confirm_email'
 
   namespace :api do
     namespace :v1 do

@@ -13,6 +13,7 @@ module Sessions
       @user = User.find_by(email:) || User.find_by(username: email)
 
       return add_email_not_found_error unless user
+      return add_email_not_confirmed_error unless user.confirmed?
       return add_password_error unless passwords_are_same
 
       @token = Jwt.encode(remember_me ? email_only_hash : encode_hash)
@@ -23,6 +24,12 @@ module Sessions
 
     def add_email_not_found_error
       @errors[:email] << 'is not found'
+      false
+    end
+
+    def add_email_not_confirmed_error
+      @errors[:email] << 'is not yet confirmed. Sending confirmation email.'
+      Users::SendConfirmationService.new(user).call
       false
     end
 

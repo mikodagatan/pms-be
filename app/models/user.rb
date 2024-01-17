@@ -16,4 +16,8 @@ class User < ApplicationRecord
   def full_name
     "#{first_name} #{last_name}"
   end
+
+  def confirmed?
+    confirmed_at.present?
+  end
 end

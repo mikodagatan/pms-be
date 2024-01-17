@@ -10,6 +10,7 @@ module Users
       @user = User.new(params)
 
       user.save!
+      UserMailer.send_confirmation(user).deliver_now
     rescue StandardError
       @errors = user.errors
       false
