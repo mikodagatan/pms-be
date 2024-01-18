@@ -17,7 +17,7 @@ module Mentions
                   MentionMailer.send_assignment(mention)
                 end
 
-        email.deliver_now
+        email.deliver_later
         mention.update(email_sent_at: DateTime.current)
       end
     end

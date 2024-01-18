@@ -17,6 +17,7 @@ gem 'rack-cors'
 gem 'rails', '~> 7.1.2'
 gem 'redis', '>= 4.0.1'
 gem 'ruby-openai'
+gem 'sidekiq', '6.5.12'
 gem 'tzinfo-data', platforms: %i[windows jruby]
 
 group :development, :test do

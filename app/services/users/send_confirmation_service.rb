@@ -11,7 +11,7 @@ module Users
         user.assign_attributes(confirmation_token: SecureRandom.hex(20))
 
         user.save!
-        UserMailer.send_confirmation(user).deliver_now
+        UserMailer.send_confirmation(user).deliver_later
       end
     rescue StandardError => e
       @errors = { error: e }
