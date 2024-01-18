@@ -36,7 +36,7 @@ module Comments
     end
 
     def mention_users
-      Mentions::MentionUserService.new(current_user, comment).call
+      Mentions::MentionUsersService.new(current_user, comment).call
     end
   end
 end

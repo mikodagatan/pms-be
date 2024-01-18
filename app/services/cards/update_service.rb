@@ -43,7 +43,7 @@ module Cards
     end
 
     def mention_users
-      Mentions::MentionUserService.new(current_user, card).call
+      Mentions::MentionUsersService.new(current_user, card).call
     end
 
     def mention_assignees
