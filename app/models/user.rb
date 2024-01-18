@@ -10,6 +10,9 @@ class User < ApplicationRecord
   has_many :card_assignees, foreign_key: 'assignee_id'
   has_many :assigned_cards, through: :card_assignees, source: :card
 
+  has_many :mentioneds, class_name: 'Mention', foreign_key: 'mentioned_id'
+  has_many :mentions, class_name: 'Mention', foreign_key: 'commenter_id'
+
   validates :email, uniqueness: true, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :username, uniqueness: true
 

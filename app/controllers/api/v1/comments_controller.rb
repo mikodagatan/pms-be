@@ -12,7 +12,7 @@ module Api
       end
 
       def update
-        service = Comments::UpdateService.new(comment, update_params)
+        service = Comments::UpdateService.new(@current_user, comment, update_params)
 
         if service.call
           render json: { success: true, comment: CommentSerializer.render_as_hash(service.comment) }

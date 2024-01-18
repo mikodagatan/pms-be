@@ -1,0 +1,16 @@
+<h1>You're assigned to a Card!</h1>
+<p>Hello <%= @mention.mentioned.full_name %>,</p>
+<p>
+  <%= @mention.commenter.full_name %> has assigned you to
+  <a href="<%= @decorator.url %>">
+    <%= @decorator.code %> 
+  </a>
+ </p>
+<% if @decorator.content %>
+  <p>The scope is below:</p>
+  <div class="quote">
+    <%= @decorator.content&.html_safe %>
+  </div>
+<% end %>
+<p>You can check it out on the link below:</p>
+<a href="<%= @decorator.url %>">Check card</a>

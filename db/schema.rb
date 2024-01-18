@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_17_020747) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_18_025634) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,6 +93,20 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_020747) do
     t.index ["user_id"], name: "index_company_users_on_user_id"
   end
 
+  create_table "mentions", force: :cascade do |t|
+    t.bigint "commenter_id", null: false
+    t.bigint "mentioned_id", null: false
+    t.string "resource_type", null: false
+    t.bigint "resource_id", null: false
+    t.datetime "email_sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commenter_id"], name: "index_mentions_on_commenter_id"
+    t.index ["mentioned_id", "resource_id", "resource_type"], name: "index_mentions_on_mentioned_and_resource", unique: true
+    t.index ["mentioned_id"], name: "index_mentions_on_mentioned_id"
+    t.index ["resource_type", "resource_id"], name: "index_mentions_on_resource"
+  end
+
   create_table "openai_threads", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.string "thread_id"
@@ -155,6 +169,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_17_020747) do
   add_foreign_key "companies", "users", column: "owner_id"
   add_foreign_key "company_users", "companies"
   add_foreign_key "company_users", "users"
+  add_foreign_key "mentions", "users", column: "commenter_id"
+  add_foreign_key "mentions", "users", column: "mentioned_id"
   add_foreign_key "openai_threads", "projects"
   add_foreign_key "project_users", "projects"
   add_foreign_key "project_users", "users"

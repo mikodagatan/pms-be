@@ -15,8 +15,9 @@ class Card < ApplicationRecord
 
   has_many :histories, -> { order(created_at: :desc) }, class_name: 'CardHistory', dependent: :destroy
 
-  before_create :assign_code
+  has_many :mentions, as: :resource, dependent: :destroy
 
+  before_create :assign_code
   before_destroy :delete_images
 
   private

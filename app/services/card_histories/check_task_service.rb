@@ -21,6 +21,8 @@ module CardHistories
       history.save!
     end
 
+    private
+
     def output
       if task.checked
         "<strong>#{full_name}</strong> has marked the #{task_type} as done: <strong>#{task.name}</strong>"

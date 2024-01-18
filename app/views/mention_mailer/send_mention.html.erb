@@ -1,0 +1,14 @@
+<h1>You're mentioned in a <%= @mention.resource_type  %></h1>
+<p>Hello <%= @mention.mentioned.full_name %>,</p>
+<p>
+  <%= @mention.commenter.full_name %> has mentioned you in
+  <a href="<%= @decorator.url %>">
+    <%= @decorator.mentioned_in %> 
+  </a>
+ </p>
+<p>The comment is below:</p>
+<div class="quote">
+  <%= @decorator.content.html_safe %>
+</div>
+<p>You can check it out on the link below:</p>
+<a href="<%= @decorator.url %>">Check mention</a>

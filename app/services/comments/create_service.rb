@@ -12,11 +12,13 @@ module Comments
         @comment = Comment.new(create_params)
 
         comment.save!
+        mention_users
         broadcast
       end
       true
-    rescue StandardError
-      @errors = comment.errors
+    rescue StandardError => e
+      @errors = comment.errors.to_hash
+      @errors[:error] = e
       false
     end
 
@@ -31,6 +33,10 @@ module Comments
         "card_channel_#{comment.resource.id}",
         { card: CardSerializer.render_as_hash(comment.resource) }
       )
+    end
+
+    def mention_users
+      Mentions::MentionUserService.new(current_user, comment).call
     end
   end
 end
