@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Column, type: :model do
-  it { should belong_to(:project) }
-  it { should have_many(:cards) }
+  describe 'associations' do
+    it { should belong_to(:project) }
+    it { should have_many(:cards).dependent(:destroy) }
+  end
 end

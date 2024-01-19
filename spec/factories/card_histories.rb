@@ -1,9 +1,10 @@
 FactoryBot.define do
   factory :card_history do
-    card { nil }
-    user { nil }
-    attr { "MyString" }
-    from { "MyText" }
-    to { "MyText" }
+    card
+    user
+    attr { 'card' }
+    from { 'MyText' }
+    to { 'MyText' }
+    action_status { 'normal' }
   end
 end

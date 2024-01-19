@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :project do
-    name { "MyString" }
-    code { "MyString" }
+    sequence(:name) { |i| "SampleProject #{i}" }
+    sequence(:code) { |i| "SMPL#{i}" }
   end
 end

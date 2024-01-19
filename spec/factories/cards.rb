@@ -1,9 +1,8 @@
 FactoryBot.define do
   factory :card do
-    column { nil }
-    name { "MyString" }
-    code { "MyString" }
-    description { "MyText" }
+    column
+    sequence(:name) { |i| "Card #{i}" }
+    description { 'MyText' }
     priority { 1 }
     position { 1 }
   end
