@@ -5,7 +5,7 @@ module Tasks
     def initialize(current_user, task)
       @current_user = current_user
       @task = task
-      @errors = []
+      @errors = {}
     end
 
     def call
@@ -14,8 +14,9 @@ module Tasks
         task.destroy
         broadcast
       end
+      true
     rescue StandardError => e
-      @errors << e
+      @errors[:error] = e.message
       false
     end
 

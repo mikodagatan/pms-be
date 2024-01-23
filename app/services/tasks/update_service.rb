@@ -15,6 +15,7 @@ module Tasks
         task.save
         broadcast
       end
+      true
     rescue StandardError
       @errors = task.errors
       false

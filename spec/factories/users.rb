@@ -7,5 +7,6 @@ FactoryBot.define do
     google_photo_url { 'MyString' }
     password { 'password123' }
     password_confirmation { 'password123' }
+    confirmed_at { DateTime.current }
   end
 end

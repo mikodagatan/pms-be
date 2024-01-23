@@ -14,8 +14,10 @@ module Tasks
         create_history
         broadcast
       end
-    rescue StandardError
-      @errors = task.errors
+      true
+    rescue StandardError => e
+      @errors = task&.errors || {}
+      @errors[:error] = e.message
       false
     end
 

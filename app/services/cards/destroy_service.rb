@@ -1,6 +1,6 @@
 module Cards
   class DestroyService
-    attr_reader :current_user, :card
+    attr_reader :current_user, :card, :errors
 
     def initialize(current_user, card)
       @current_user = current_user
@@ -10,6 +10,10 @@ module Cards
     def call
       card.destroy
       broadcast
+      true
+    rescue StandardError => e
+      @errors = { error: e.message }
+      false
     end
 
     private

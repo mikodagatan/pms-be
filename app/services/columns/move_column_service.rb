@@ -9,7 +9,7 @@ module Columns
 
     def call
       ActiveRecord::Base.transaction do
-        column.insert_at(@destination_index + 1)
+        column.insert_at(@destination_index.to_i + 1)
       end
       true
     rescue StandardError

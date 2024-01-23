@@ -1,9 +1,10 @@
 module Users
   class ResetPasswordService
-    attr_reader :params, :error
+    attr_reader :params, :errors
 
     def initialize(params)
       @params = params
+      @errors = {}
     end
 
     def call
@@ -22,12 +23,12 @@ module Users
     end
 
     def set_not_found_error
-      @error = 'Cannot find user'
+      @errors[:error] = 'Cannot find user'
       false
     end
 
     def set_expired_error
-      @error = 'Reset password token has expired'
+      @errors[:error] = 'Reset password token has expired'
       false
     end
 

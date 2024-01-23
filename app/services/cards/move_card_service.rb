@@ -1,6 +1,6 @@
 module Cards
   class MoveCardService
-    attr_reader :current_user, :project, :card
+    attr_reader :current_user, :project, :card, :errors
 
     def initialize(current_user, params)
       @current_user = current_user
@@ -17,11 +17,12 @@ module Cards
         card.remove_from_list
         card.update(column: destination_column) unless same_column?
         create_history
-        card.insert_at(@destination_index + 1)
+        card.insert_at(@destination_index.to_i + 1)
         broadcast
       end
       true
-    rescue StandardError
+    rescue StandardError => e
+      @errors = { error: e.message }
       false
     end
 

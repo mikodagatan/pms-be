@@ -10,7 +10,7 @@ module Projects
     def call
       ActiveRecord::Base.transaction do
         project.update!(update_params)
-        project.users = project_users
+        project.users = project_users if params[:user_ids]
       end
       true
     rescue StandardError
@@ -29,7 +29,7 @@ module Projects
     end
 
     def project_users
-      params[:user_ids].map do |id|
+      params[:user_ids]&.map do |id|
         User.find(id)
       end
     end

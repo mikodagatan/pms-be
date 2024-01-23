@@ -13,10 +13,6 @@ class ConfirmationsController < ApplicationController
 
   private
 
-  def user
-    @user ||= User.find_by(email: params[:email])
-  end
-
   def confirm_params
     params.permit(:token)
   end

@@ -36,7 +36,7 @@ module Api
       private
 
       def column
-        @column ||= Column.find(params[:id])
+        @column ||= Column.find_by(id: params[:id])
       end
 
       def update_params

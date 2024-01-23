@@ -57,7 +57,6 @@ module Api
 
       def destroy
         service = Tasks::DestroyService.new(@current_user, task)
-
         if service.call
           render json: { success: true, card: CardSerializer.render_as_hash(service.task.card) }
         else
@@ -72,7 +71,7 @@ module Api
       end
 
       def task
-        @task ||= Task.find(params[:id])
+        @task ||= Task.find_by(id: params[:id])
       end
 
       def create_params

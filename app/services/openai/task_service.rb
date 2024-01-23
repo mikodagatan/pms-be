@@ -77,6 +77,7 @@ module Openai
       my_tool_outputs = tools_to_call.map do |tool|
         # Call the functions based on the tool's name
         function_name = tool.dig('function', 'name')
+
         arguments = JSON.parse(
           tool.dig('function', 'arguments'),
           { symbolize_names: true }
@@ -94,6 +95,7 @@ module Openai
     def call_tool_function(function_name, arguments)
       case function_name
       when 'list_tasks'
+
         Openai::Function::ListTasksService.call(current_user:, card:, **arguments)
       end
     end

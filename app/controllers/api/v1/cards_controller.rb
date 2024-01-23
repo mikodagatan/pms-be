@@ -34,8 +34,8 @@ module Api
         service.call
 
         render json: { success: true, card: CardSerializer.render_as_hash(service.card) }
-      rescue StandardError
-        render json: { success: false }
+      rescue StandardError => e
+        render json: { success: false, errors: { error: e.message } }
       end
 
       def destroy
@@ -44,7 +44,7 @@ module Api
         if service.call
           render json: { success: true }
         else
-          render json: { success: false }
+          render json: { success: false, errors: service.errors }
         end
       end
 

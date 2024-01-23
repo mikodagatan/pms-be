@@ -15,9 +15,10 @@ module Cards
         create_history
         broadcast
       end
+      true
     rescue StandardError => e
-      @errors = @card.errors.to_hash
-      @errors[:error] = e
+      @errors = card&.errors&.to_hash || {}
+      @errors[:error] = e.message
       false
     end
 

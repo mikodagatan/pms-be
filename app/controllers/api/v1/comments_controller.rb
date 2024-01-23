@@ -24,7 +24,7 @@ module Api
       def destroy
         if comment.commenter_id != @current_user.id
           return render json: { success: false,
-                                error: "Cannot delete other users' comments" }
+                                errors: { error: "Cannot delete other users' comments" } }
         end
 
         service = Comments::DestroyService.new(comment)

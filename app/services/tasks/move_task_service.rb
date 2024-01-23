@@ -9,7 +9,7 @@ module Tasks
 
     def call
       ActiveRecord::Base.transaction do
-        task.insert_at(@destination_index + 1)
+        task.insert_at(@destination_index.to_i + 1)
         broadcast
       end
       true

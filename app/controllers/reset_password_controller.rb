@@ -17,7 +17,7 @@ class ResetPasswordController < ApplicationController
     if service.call
       render json: { success: true }
     else
-      render json: { success: false, error: service.error }, status: :unprocessable_entity
+      render json: { success: false, errors: service.errors }, status: :unprocessable_entity
     end
   end
 
