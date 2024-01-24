@@ -25,7 +25,7 @@ module CardHistories
     def output
       "<strong>#{current_user.full_name}</strong> has updated the #{task_type}" \
       " from <strong>#{task.name_was}</strong> " \
-      " to <strong>#{task.name}</strong>"
+      "to <strong>#{task.name}</strong>"
     end
 
     def task_type

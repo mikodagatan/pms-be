@@ -10,7 +10,7 @@ module CardHistories
 
     def call
       history = card.histories.build(
-        attr: :card,
+        attr: :task,
         action: :destroy_action,
         user: current_user,
         to: task.name,

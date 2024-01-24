@@ -6,7 +6,6 @@ class GoogleAuth
   CLIENT_ID = Rails.env.test? ? 'google-client-id' : ENV['GOOGLE_CLIENT_ID']
   CLIENT_SECRET = ENV['GOOGLE_CLIENT_SECRET']
   REDIRECT_URI = Rails.application.routes.url_helpers.auth_callback_url
-  # REDIRECT_URI = "#{ENV['FRONT_END_URL']}/auth/callback".freeze
 
   attr_reader :state_manager
 

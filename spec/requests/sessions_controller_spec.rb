@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe SessionsController, type: :request do
   before do
-    allow(ENV).to receive(:[]).and_return(nil)
     stub_const('ENV', ENV.to_hash.merge('FRONT_END_URL' => 'localhost:8000'))
-    # stub_const('ENV', ENV.to_hash.merge('GOOGLE_CLIENT_ID' => 'google-client-id'))
   end
 
   describe '#login' do
@@ -50,7 +48,7 @@ RSpec.describe SessionsController, type: :request do
     it 'returns a redirect url' do
       get '/auth/google_login'
 
-      expect(from_json(response.body)[:redirect_url]).to include("https://accounts.google.com/o/oauth2/auth?client_id=google-client-id&redirect_uri=http://localhost:3000/auth/callback&scope=https://www.googleapis.com/auth/userinfo.email%20profile&response_type=code")
+      expect(from_json(response.body)[:redirect_url]).to include('https://accounts.google.com/o/oauth2/auth?client_id=google-client-id&redirect_uri=http://localhost:3000/auth/callback&scope=https://www.googleapis.com/auth/userinfo.email%20profile&response_type=code')
     end
   end
 
