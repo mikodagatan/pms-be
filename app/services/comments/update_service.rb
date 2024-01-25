@@ -17,8 +17,8 @@ module Comments
       end
       true
     rescue StandardError => e
-      @errors = comment.errors.to_hash
-      @errors[:error] = e
+      @errors = comment.errors&.to_hash || {}
+      @errors[:error] = e.message
       false
     end
 

@@ -106,7 +106,8 @@ RSpec.describe Api::V1::ProjectsController, type: :request do
 
         parsed_response = from_json(response.body)
         expect(parsed_response).to include({ success: false })
-        expect(parsed_response).to include({ errors: { code: ['has already been taken'] } })
+        expect(parsed_response).to include({ errors: { code: ['has already been taken'],
+                                                       error: 'Validation failed: Code has already been taken' } })
       end
     end
   end

@@ -24,3 +24,17 @@ def open_ai_mock
     }
   }
 end
+
+def open_ai_developer_tasks
+  [
+    { 'name' => 'developer task 1' },
+    { 'name' => 'developer task 2' }
+  ]
+end
+
+def open_ai_user_testing_tasks
+  [
+    { 'name' => 'user testing task 1' },
+    { 'name' => 'user testing task 2' }
+  ]
+end

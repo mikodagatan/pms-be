@@ -13,8 +13,9 @@ module Projects
         project.users = project_users if params[:user_ids]
       end
       true
-    rescue StandardError
-      @errors = project.errors
+    rescue StandardError => e
+      @errors = project&.errors&.to_hash || {}
+      @errors[:error] = e.message
       false
     end
 

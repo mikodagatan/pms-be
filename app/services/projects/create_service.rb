@@ -16,7 +16,7 @@ module Projects
       end
       true
     rescue StandardError
-      @errors = @project.errors
+      @errors = @project.errors&.to_hash
       false
     end
 

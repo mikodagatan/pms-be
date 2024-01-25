@@ -1,7 +1,7 @@
 module Openai
   class ProjectManagerAssistantService
     class << self
-      ID = ENV['PROJECT_MANAGER_ASSISTANT_ID']
+      ID = Rails.env.test? ? 'project-manager-assistant-id' : ENV['PROJECT_MANAGER_ASSISTANT_ID']
 
       def call(modify: false)
         @modify = modify
@@ -46,16 +46,17 @@ module Openai
       end
 
       def assistant_id
-        if ID
-          # NOTE: Useful when changing instructions for assistant.
-          modify_assistant if @modify
+        return unless ID
 
-          return ID
-        end
+        # NOTE: Useful when changing instructions for assistant.
+        modify_assistant if @modify
 
-        response = client.assistants.create(parameters: assistant_params)
-        puts response['id']
-        response['id']
+        ID
+
+        # NOTE: create if no assistant.
+        # response = client.assistants.create(parameters: assistant_params)
+        # puts response['id']
+        # response['id']
       end
 
       def modify_assistant

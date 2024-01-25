@@ -95,7 +95,6 @@ module Openai
     def call_tool_function(function_name, arguments)
       case function_name
       when 'list_tasks'
-
         Openai::Function::ListTasksService.call(current_user:, card:, **arguments)
       end
     end
