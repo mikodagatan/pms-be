@@ -20,8 +20,9 @@ module Users
         user.save!
         UserMailer.send_password_reset(user).deliver_later
       end
+      true
     rescue StandardError => e
-      @errors = { error: e }
+      @errors = { error: e.message }
       false
     end
 

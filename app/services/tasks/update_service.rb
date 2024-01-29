@@ -16,8 +16,9 @@ module Tasks
         broadcast
       end
       true
-    rescue StandardError
-      @errors = task.errors
+    rescue StandardError => e
+      @errors = task&.errors || {}
+      @errors[:error] = e.message
       false
     end
 

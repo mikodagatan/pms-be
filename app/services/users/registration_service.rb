@@ -11,8 +11,9 @@ module Users
 
       user.save!
       UserMailer.send_confirmation(user).deliver_later
+      true
     rescue StandardError
-      @errors = user.errors
+      @errors = user.errors&.to_hash
       false
     end
   end

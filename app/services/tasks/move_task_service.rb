@@ -1,10 +1,11 @@
 module Tasks
   class MoveTaskService
-    attr_reader :task
+    attr_reader :task, :errors
 
     def initialize(params)
-      @task = Task.find(params[:task_id])
+      @task = Task.find_by(id: params[:task_id])
       @destination_index = params[:destination_index]
+      @errors = {}
     end
 
     def call
@@ -13,7 +14,8 @@ module Tasks
         broadcast
       end
       true
-    rescue StandardError
+    rescue StandardError => e
+      @errors[:error] = e.message
       false
     end
 
