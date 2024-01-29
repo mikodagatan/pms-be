@@ -11,8 +11,6 @@ class MentionCommentDecorator
   end
 
   def project
-    return unless comment.resource_type == 'Card'
-
     comment.resource.column.project
   end
 
