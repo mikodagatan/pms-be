@@ -6,7 +6,7 @@ RSpec.describe Comments::DestroyService do
   let!(:comment) { create(:comment, resource: card) }
 
   describe '#call' do
-    let(:service) { Comments::DestroyService.new(comment) }
+    let(:service) { Comments::DestroyService.new(user, comment) }
 
     it 'destroys the comment' do
       expect do

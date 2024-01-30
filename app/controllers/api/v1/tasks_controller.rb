@@ -30,7 +30,7 @@ module Api
       end
 
       def move_task
-        service = Tasks::MoveTaskService.new(move_task_params)
+        service = Tasks::MoveTaskService.new(@current_user, move_task_params)
 
         if service.call
           render json: { success: true }

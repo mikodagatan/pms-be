@@ -30,7 +30,8 @@ module Tasks
     def broadcast
       ActionCable.server.broadcast(
         "card_channel_#{task.card.id}",
-        { card: CardSerializer.render_as_hash(task.card) }
+        { card: CardSerializer.render_as_hash(task.card),
+          sender_id: current_user.id }
       )
     end
   end

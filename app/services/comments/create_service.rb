@@ -31,7 +31,8 @@ module Comments
     def broadcast
       ActionCable.server.broadcast(
         "card_channel_#{comment.resource.id}",
-        { card: CardSerializer.render_as_hash(comment.resource) }
+        { card: CardSerializer.render_as_hash(comment.resource),
+          sender_id: current_user.id }
       )
     end
 

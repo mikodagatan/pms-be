@@ -47,7 +47,8 @@ module Cards
     def broadcast
       ActionCable.server.broadcast(
         "project_channel_#{project.id}",
-        { project: ProjectSerializer.render_as_hash(project) }
+        { project: ProjectSerializer.render_as_hash(project),
+          sender_id: current_user.id }
       )
     end
   end

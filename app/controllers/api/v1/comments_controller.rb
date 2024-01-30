@@ -27,7 +27,7 @@ module Api
                                 errors: { error: "Cannot delete other users' comments" } }
         end
 
-        service = Comments::DestroyService.new(comment)
+        service = Comments::DestroyService.new(@current_user, comment)
 
         render json: { success: true } if service.call
       end

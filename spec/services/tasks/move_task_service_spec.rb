@@ -5,7 +5,7 @@ RSpec.describe Tasks::MoveTaskService do
   let!(:card) { create(:card) }
   let!(:task) { create(:task, card:) }
   let!(:other_tasks) { create_list(:task, 4, card:) }
-  let(:service) { described_class.new(params) }
+  let(:service) { described_class.new(user, params) }
 
   describe '#call' do
     context 'when task is present' do
